@@ -82,7 +82,7 @@ class PatientController extends Controller
 
         $pat->save();
 
-        return Redirect::back()->with('success', 'Data saved');
+        return Redirect::back()->with('success', 'Ajouter un patient avec succès');
 
     }
 
@@ -129,7 +129,7 @@ class PatientController extends Controller
         $patient->update($request->all());
 
 
-        return redirect()->route('patient.index')->with('success','Patient Has Been updated successfully');
+        return redirect()->route('patient.index')->with('success','modifier un patient avec succès');
 
     }
 
@@ -142,6 +142,6 @@ class PatientController extends Controller
         $patients = Patient::find($id);
         $patients->delete();
         // return redirect()->route('patient.index')->with('status', 'Data deleted successfully');
-        return Redirect::back()->with('success', 'Data deleted');
+        return Redirect::back()->with('success', 'supprimer un patient avec succès');
     }
 }

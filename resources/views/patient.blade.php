@@ -1,9 +1,3 @@
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css">
-
-
 @extends('adminlte::page')
 
 @section('title')
@@ -15,19 +9,22 @@
 @endsection
 
 @section('content')
+<div class="container">
+    <div class="col-md-offset-1 col-md-12 mb-5">
+        <div class="d-flex" style="justify-content: flex-end;">
 
-    <div class="d-flex" style="margin:0 40px; justify-content: flex-end;">
-
-        <form class="d-flex" style="width: 250px;" role="search" method="GET">
-            <input class="form-control me-2" name="search" type="search" placeholder="Search" aria-label="Search"
-                style="border-radius: .5rem;">
-            <button class="btn btn-outline-success" type="submit" style="border-radius: .5rem;">Search</button>
-        </form>
-        <!-- Button trigger modal -->
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
-            style="background-color: #2b9db9; width: 120px; height: 40px; margin-left: 30px; border-radius: .5rem;">
-            <i class="fas fa-plus" style="margin-right: 5px"></i> Ajouter </button>
+            <form class="d-flex" style="width: 250px;" role="search" method="GET">
+                <input class="form-control me-2" name="search" type="search" placeholder="Search" aria-label="Search"
+                    style="border-radius: .5rem;">
+                <button class="btn btn-outline-success" type="submit" style="border-radius: .5rem;">Search</button>
+            </form>
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                style="background-color: #2b9db9; width: 120px; height: 40px; margin-left: 30px; border-radius: .5rem;">
+                <i class="fas fa-plus" style="margin-right: 5px"></i> Ajouter </button>
+        </div>
     </div>
+
 
 
 
@@ -172,7 +169,7 @@
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label for="form_need">Type de diabète </label>
+                                                    <label for="form_need">Type de diabète</label>
                                                     <select id="form_need" name="typeDiabete" class="form-control"
                                                         data-error="Please specify your need.">
                                                         <option value="" selected disabled>--Select Your Issue--
@@ -234,106 +231,79 @@
 
 
 
-    </div>
+
 
 
 
     <!--table-->
 
+        <div class="row">
+            <div class="col-md-offset-1 col-md-12">
+                <table class="table table-striped mb-0 table-responsive  rounded"
+                    style="text-overflow: ellipsis;  white-space: nowrap; table-layout: fixed;">
+                    <thead style="background-color: #2b9db9; color: white; font-size: 1.08rem; top:0; position: sticky;">
+                        <tr>
+                            <th scope="col">Id</th>
+                            <th scope="col">CIN</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Age</th>
+                            <th scope="col">Address</th>
+                            <th scope="col">Phone</th>
+                            <th scope="col">TA</th>
+                            <th scope="col">Glycemie</th>
+                            <th scope="col">Poids</th>
+                            <th scope="col">Albuminurie</th>
+                            <th scope="col">Observation</th>
+                            <th scope="col">type Diabete</th>
+                            <th scope="col">traitement du diabete</th>
+                            <th scope="col" style="position: sticky; right: 0; z-index: 1; background-color: #2b9db9;">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($patients as $patient)
+                            <tr>
+                                <td>{{ $patient->id }}</td>
+                                <td>{{ $patient->cin }}</td>
+                                <td>{{ $patient->name }}</td>
+                                <td>{{ $patient->age }}</td>
+                                <td>{{ $patient->address }}</td>
+                                <td>{{ $patient->phone }}</td>
+                                <td>{{ $patient->TA }}</td>
+                                <td>{{ $patient->Glycemie }}</td>
+                                <td>{{ $patient->poids }}</td>
+                                <td>{{ $patient->Albuminurie }}</td>
+                                <td>{{ $patient->Observation }}</td>
+                                <td>{{ $patient->typeDiabete_id }}</td>
+                                <td>{{ $patient->traitement_id }}</td>
+                                <td style="position: sticky; right: 0; z-index: 1; background-color: #2b9db9;">
 
-    <div class="h-100" style="background-color: #f5f7fa;">
-        <div class="mask d-flex align-items-center h-100">
-            <div class="container">
+                                    <form action="{{ route('patient.destroy',$patient->id) }}" method="POST">
+                                        <a class="btn btn-warning" href="{{ route('patient.edit', $patient->id) }}">
+                                            <i class="fas fa-edit"></i> Edit</a>
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i>
+                                            Delete</button>
+                                    </form>
 
-                <div class="row justify-content-center">
-
-
-
-                    <div class="col-12">
-                        <div class="card" style="border-radius: .5rem;">
-                            <div class="card-body p-0">
-                                <div class="table-responsive table-scroll" data-mdb-perfect-scrollbar="true"
-                                    style="position: relative; border-radius: .5rem;">
-
-                                    <table class="table table-striped mb-0"
-                                        style="text-overflow: ellipsis;  white-space: nowrap;">
-                                        <thead
-                                            style="background-color: #2b9db9; color: white; font-size: 1.08rem; top:0; position: sticky;">
-                                            <tr>
-                                                <th scope="col">Id</th>
-                                                <th scope="col">CIN</th>
-                                                <th scope="col">Name</th>
-                                                <th scope="col">Age</th>
-                                                <th scope="col">Address</th>
-                                                <th scope="col">Phone</th>
-                                                <th scope="col">TA</th>
-                                                <th scope="col">Glycemie</th>
-                                                <th scope="col">Poids</th>
-                                                <th scope="col">Albuminurie</th>
-                                                <th scope="col">Observation</th>
-                                                <th scope="col">type Diabete</th>
-                                                <th scope="col">traitement du diabete</th>
-                                                <th scope="col">Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach ($patients as $patient)
-                                                <tr>
-                                                    <td>{{ $patient->id }}</td>
-                                                    <td>{{ $patient->cin }}</td>
-                                                    <td>{{ $patient->name }}</td>
-                                                    <td>{{ $patient->age }}</td>
-                                                    <td>{{ $patient->address }}</td>
-                                                    <td>{{ $patient->phone }}</td>
-                                                    <td>{{ $patient->TA }}</td>
-                                                    <td>{{ $patient->Glycemie }}</td>
-                                                    <td>{{ $patient->poids }}</td>
-                                                    <td>{{ $patient->Albuminurie }}</td>
-                                                    <td>{{ $patient->Observation }}</td>
-                                                    <td>{{ $patient->typeDiabete_id }}</td>
-                                                    <td>{{ $patient->traitement_id }}</td>
-                                                    <td>
-
-                                                        <form action="{{ route('patient.destroy', $patient->id) }}"
-                                                            method="POST">
-                                                            <a class="btn btn-warning"
-                                                                href="{{ route('patient.edit', $patient->id) }}"><i
-                                                                    class="fas fa-edit"></i> Edit</a>
-                                                            @csrf
-                                                            @method('DELETE')
-                                                            <button type="submit" class="btn btn-danger"><i
-                                                                    class="fas fa-trash"></i> Delete</button>
-                                                        </form>
-
-                                                    </td>
-                                                </tr>
-                                            @endforeach
+                                </td>
+                            </tr>
+                        @endforeach
 
 
-                                        </tbody>
-                                    </table>
+                    </tbody>
 
-
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="d-flex justify-content-center">
-                        {{ $patients->links() }}
-                    </div>
+                </table>
+                <div class="d-flex justify-content-center mt-4">
+                    {{ $patients->links() }}
                 </div>
             </div>
         </div>
 
+</div>
+        <!--table-->
 
 
 
-    </div>
-    <!--table-->
-
-
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js  "></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js  "></script>
 @endsection
